@@ -1,8 +1,12 @@
 const net = require("net");
 
-// setup interface to handle user input from stdin
+// Stores the active TCP connection object. In outer-most scope so it can be used by all functions
+let connection;
 
-const setupInput = function () {
+// setup interface to handle user input from stdin
+// setupInput accepts the conn object to interact with the server
+const setupInput = (conn) => {
+  connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding("utf8");
@@ -12,12 +16,26 @@ const setupInput = function () {
 };
 
 // handleUserInput doesn't need to be exported because it's only called by setupInput which is already in the same file
- const handleUserInput = function () {
-   // \u0003 maps to ctrl+c input
-   if (key === '\u0003') {
-     process.exit();
-   }
- };
+const handleUserInput = function(key) {
+  // \u0003 maps to ctrl+c input
+//  console.log(key);
+  if (key === '\u0003') {
+    process.exit();
+  }
+  if (key === 'w') {
+    connection.write("Move: up");
+  }
+  if (key === 'a') {
+    connection.write("Move: left");
+  }
+  if (key === 's') {
+    connection.write("Move: down");
+  }
+  if (key === 'd') {
+    connection.write("Move: right");
+  };
+
+};
 
  module.exports = {
   setupInput

@@ -5,9 +5,10 @@ const connect = function() {
     host: 'localhost',  // IP address here,
     port: 50541 // PORT number here,
   });
+
+  console.log("Connecting to localhost:50541");
   conn.on("data", (data) => {
     console.log("Server says: ", data);
-
   });
 
   //immediately upon connecting, send initials to server

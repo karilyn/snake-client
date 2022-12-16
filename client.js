@@ -3,30 +3,34 @@ const { IP, PORT } = require("./constants");
 
 // establishes connection with game server
 const connect = function() {
-  const conn = net.createConnection({
+  const client = net.createConnection({
     host: IP,
     port: PORT
   });
-
-  console.log("Connecting to localhost:50541");
-  conn.on("data", (data) => {
-    console.log("Server says: ", data);
-  });
+  console.log(`Connecting to ${IP}:${PORT}`);
+  // interpret incoming data as text
+  client.setEncoding("utf8");
 
   //immediately upon connecting, send initials to server
-  conn.on("connect", (connect) => {
+  client.on("connect", (connect) => {
     console.log("Successfully connected to game server.");
-    conn.write("Name: KLK");
-    // conn.write("Move: up");
-    // setTimeout(() => {
-    //   conn.write("Move: up");
-    // }, 50);
+    client.write("Name: KLK");
   });
-  // interpret incoming data as text
-  conn.setEncoding("utf8");
+
 
   return conn;
 };
+
+// we need to listen for an event saying a message has come through
+client.on("data", (message) => {
+  console.log("Server says: ", message);
+});
+
+client.on("end", () => {
+  console.log("Connection to server ended.");
+  process.exit()
+})
+
 
 module.exports = {
   connect

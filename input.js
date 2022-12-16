@@ -1,5 +1,8 @@
 const net = require("net");
-const { MOVE_UP_KEY, MOVE_LEFT_KEY, MOVE_DOWN_KEY, MOVE_RIGHT_KEY, messageKeys } = require("./constants");
+const {
+  KEY_MAP,
+  messageKeys
+} = require("./constants");
 
 // Stores the active TCP connection object. In outer-most scope so it can be used by all functions
 let connection;
@@ -23,26 +26,16 @@ const handleUserInput = function(key) {
   if (key === '\u0003') {
     process.exit();
   }
-  if (key === MOVE_UP_KEY) {
-    connection.write("Move: up");
-  }
-  if (key === MOVE_LEFT_KEY) {
-    connection.write("Move: left");
-  }
-  if (key === MOVE_DOWN_KEY) {
-    connection.write("Move: down");
-  }
-  if (key === MOVE_RIGHT_KEY) {
-    connection.write("Move: right");
-  };
-  if (key === messageKeys[h]) {
-    connection.write("Say: you're hisstory");
-  };
-  if (key === messageKeys[j]) {
-    connection.write("Say: addercadabra");
-  };
 
-};
+  // use the exported KEY_MAP
+  let instruction = KEY_MAP[key];
+
+  //If instruction is not undefined, do whatever the value of the key is
+  if (instruction !== undefined){
+    connection.write(instruction);
+    return;
+  }
+ };
 
  module.exports = {
   setupInput

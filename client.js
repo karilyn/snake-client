@@ -19,7 +19,7 @@ const connect = function() {
   //immediately upon connecting, send initials to server
   client.on("connect", (connect) => {
     console.log("Successfully connected to game server.");
-    client.write(`Name: ${name}`);
+    client.write(`Name: KLK`);
   });
 
 

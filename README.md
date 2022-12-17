@@ -8,9 +8,7 @@ Before you can run this client, you will need to be running the server side whic
 
 ## Final Product
 
-!["screenshot description"](#)
-!["screenshot description"](#)
-
+![screenshot of gameplay with single player](https://user-images.githubusercontent.com/4044510/208229402-07cb6c20-e410-4ad0-8899-b008b109a996.png)
 
 ## Getting Started
 
